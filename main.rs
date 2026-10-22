@@ -37,10 +37,10 @@ pub fn main() {
 
             let backup_dir = Path::new("/home/sourav/RustBackUp");
 
-            // if let Err(e) = fs::create_dir_all(backup_dir) {
-            //     println!("Could not create backup directory: {e}");
-            //     return;
-            // }
+             if let Err(e) = fs::create_dir_all(backup_dir) {
+                 println!("Could not create backup directory: {e}");
+                 return;
+                }
 
             let Some(file_name) = source.file_name() else {
                 println!("Error: Invalid file name!");
@@ -65,8 +65,7 @@ pub fn main() {
         }
 
         "2" => {
-            // println!("Delete file selected — not implemented yet.");
-            // println!("Enter the path");
+            
             delete::delete_file();
         }
 
