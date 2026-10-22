@@ -1,10 +1,15 @@
+use std::{ fs, io, path::Path};
 
-use std::{fs, io, path::Path};
+// use crossterm::Command;
+use std::process::Command;
+mod delete;
+mod backup;
 
-fn main() {
+pub fn main() {
     println!("=== SafeBack ===");
     println!("1 : Backup file");
     println!("2 : Delete file");
+    println!("3 : Backup Dir");
     println!("Enter your choice:");
 
     let mut ch = String::new();
@@ -32,10 +37,10 @@ fn main() {
 
             let backup_dir = Path::new("/home/sourav/RustBackUp");
 
-            if let Err(e) = fs::create_dir_all(backup_dir) {
-                println!("Could not create backup directory: {e}");
-                return;
-            }
+            // if let Err(e) = fs::create_dir_all(backup_dir) {
+            //     println!("Could not create backup directory: {e}");
+            //     return;
+            // }
 
             let Some(file_name) = source.file_name() else {
                 println!("Error: Invalid file name!");
@@ -45,7 +50,7 @@ fn main() {
             let destination = backup_dir.join(file_name);
 
             if destination.exists() {
-                println!("Error: Backup already exists. Nothing overwritten.");
+                println!("This file all ready exists");
                 return;
             }
 
@@ -60,7 +65,13 @@ fn main() {
         }
 
         "2" => {
-            println!("Delete file selected — not implemented yet.");
+            // println!("Delete file selected — not implemented yet.");
+            // println!("Enter the path");
+            delete::delete_file();
+        }
+
+        "3" => {
+            backup::backup_dir();
         }
 
         _ => println!("Invalid choice!"),
